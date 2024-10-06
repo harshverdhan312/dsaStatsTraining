@@ -23,26 +23,29 @@ function generateQR() {
     qrImage.onload = function() {
         downloadBtn.style.display = "block";
         resetBtn.style.display = "block";
+        drawToCanvas();
     }
 }
 
-function downloadQR() {
-    alert("button clicked ");
-    if (!qrImage.src) {
-        alert("QR code is not generated yet!");
-        return;
-    }
-    
-    qrCanvas.width = qrImage.naturalWidth;
-    qrCanvas.height = qrImage.naturalHeight;
-    var ctx = qrCanvas.getContext('2d')
-    ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+
+
+function drawToCanvas() {
+    qrCanvas.width = qrImage.width;
+    qrCanvas.height = qrImage.height;
     ctx.drawImage(qrImage, 0, 0);
-    var link = document.createElement('a');
-    link.download = 'qrcode.jpg';
-    link.href = qrCanvas.toDataURL('image/jpeg');
-    link.click();
 }
+
+function downloadQRCode() {
+    var canvas = qrCanvas;
+    var dataURL = canvas.toDataURL('image/png');
+    var link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'qrcode.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
 
 
 modeToggle.addEventListener("click", function() {
