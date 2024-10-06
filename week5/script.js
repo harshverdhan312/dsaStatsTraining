@@ -23,7 +23,6 @@ function generateQR() {
     qrImage.onload = function() {
         downloadBtn.style.display = "block";
         resetBtn.style.display = "block";
-        qrCanvas.style.display = "block";
     }
 }
 
