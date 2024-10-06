@@ -22,12 +22,22 @@ function generateQR() {
 
     qrImage.onload = function() {
         downloadBtn.style.display = "block";
+        resetBtn.style.display = "block";
+        qrCanvas.style.display = "block";
     }
 }
 
 function downloadQR() {
+    alert("button clicked ");
+    if (!qrImage.src) {
+        alert("QR code is not generated yet!");
+        return;
+    }
+    
     qrCanvas.width = qrImage.naturalWidth;
     qrCanvas.height = qrImage.naturalHeight;
+    var ctx = qrCanvas.getContext('2d')
+    ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
     ctx.drawImage(qrImage, 0, 0);
     var link = document.createElement('a');
     link.download = 'qrcode.jpg';
@@ -35,3 +45,26 @@ function downloadQR() {
     link.click();
 }
 
+
+modeToggle.addEventListener("click", function() {
+    if (body.classList.contains("dark-mode")) {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+        modeToggle.innerText = "Switch to Dark Mode";
+    } else {
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+        modeToggle.innerText = "Switch to Light Mode";
+    }
+});
+
+if (!body.classList.contains("dark-mode")) {
+    body.classList.add("light-mode");
+}
+
+function resetFields() {
+    qrText.value = "";
+    qrImage.style.display = "none";
+    downloadBtn.style.display = "none";
+    resetBtn.style.display = "none";
+}
