@@ -27,8 +27,6 @@ function generateQR() {
     }
 }
 
-
-
 function drawToCanvas() {
     qrCanvas.width = qrImage.width;
     qrCanvas.height = qrImage.height;
@@ -45,8 +43,6 @@ function downloadQRCode() {
     link.click();
     document.body.removeChild(link);
 }
-
-
 
 modeToggle.addEventListener("click", function() {
     if (body.classList.contains("dark-mode")) {
